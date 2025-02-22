@@ -4,10 +4,9 @@ export default Joi.object({
   NODE_ENV: Joi.string()
     .valid('development', 'production', 'test')
     .default('development'),
-  DATABASE_TYPE: Joi.string().required(),
-  DATABASE_HOST: Joi.string().ip().required(),
-  DATABASE_PORT: Joi.number().port().required(),
-  DATABASE_USERNAME: Joi.string().required(),
-  DATABASE_PASSWORD: Joi.string().required(),
-  DATABASE_NAME: Joi.string().required(),
+  DB_HOST: Joi.string().ip().required(),
+  DB_PORT: Joi.number().port().required(),
+  DB_USERNAME: Joi.string().required(),
+  DB_PASSWORD: Joi.string().required(),
+  DB_NAME: Joi.string().required(),
 });

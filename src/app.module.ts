@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import databaseConfig from './config/database.config';
 import validationSchema from './config/env.validation';
 
@@ -13,6 +14,7 @@ import validationSchema from './config/env.validation';
       load: [databaseConfig],
       validationSchema,
     }),
+    TypeOrmModule.forRootAsync(databaseConfig.asProvider()),
   ],
   controllers: [AppController],
   providers: [AppService],
