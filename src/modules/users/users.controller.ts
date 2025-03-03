@@ -17,6 +17,6 @@ export class UsersController {
   @Delete('me')
   async delete(@Request() req): Promise<void> {
     const user: User = req.user;
-    this.usersService.delete(user.id);
+    await this.usersService.delete(user.id);
   }
 }
