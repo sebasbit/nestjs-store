@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
+import { CategoriesModule } from './modules/categories/categories.module';
 import databaseConfig from './config/database.config';
 import validationSchema from './config/env.validation';
 
@@ -19,6 +20,7 @@ import validationSchema from './config/env.validation';
     TypeOrmModule.forRootAsync(databaseConfig.asProvider()),
     AuthModule,
     UsersModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
