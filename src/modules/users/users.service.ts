@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { randomBytes } from 'node:crypto';
 import * as bcrypt from 'bcrypt';
+import { ConflictException } from '@nestjs/common/exceptions/conflict.exception';
 
 @Injectable()
 export class UsersService {
@@ -18,6 +19,12 @@ export class UsersService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
+    if (await this.usersRepository.findOneBy({ email: createUserDto.email })) {
+      throw new ConflictException(
+        `Email ${createUserDto.email} is already registered`,
+      );
+    }
+
     const password = randomBytes(32).toString('hex');
     const hashedPassword: string = await bcrypt.hash(password, 10);
 
