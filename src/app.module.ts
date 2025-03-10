@@ -10,12 +10,13 @@ import { CategoriesModule } from './modules/categories/categories.module';
 import { ProductsModule } from './modules/products/products.module';
 import databaseConfig from './config/database.config';
 import validationSchema from './config/env.validation';
+import jwtConfig from './config/jwt.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [databaseConfig],
+      load: [databaseConfig, jwtConfig],
       validationSchema,
     }),
     TypeOrmModule.forRootAsync(databaseConfig.asProvider()),

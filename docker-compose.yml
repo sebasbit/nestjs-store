@@ -35,6 +35,7 @@ services:
       DB_USER: admin
       DB_PASSWORD: 1234
       DB_NAME: nestjs_store
+      JWT_SECRET: -5JRXN!@w2N~C[W&{E^=qI6h1~KR4eh%
     ports:
       - "3000:3000"
     depends_on:
