@@ -13,6 +13,7 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { ReqUser } from '../auth/decorators/user.decorator';
 import { User } from '../users/entities/user.entity';
+import { ApiNotFoundResponse } from '@nestjs/swagger';
 
 @Controller('categories')
 export class CategoriesController {
@@ -29,6 +30,7 @@ export class CategoriesController {
   }
 
   @Get(':id')
+  @ApiNotFoundResponse({ description: 'Category not found' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.categoriesService.findOne(id);
   }

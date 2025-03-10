@@ -8,6 +8,7 @@ import {
   Validate,
 } from 'class-validator';
 import { CategoryExists } from '../validators/category-exists.validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateProductDto {
   @IsString()
@@ -25,5 +26,6 @@ export class CreateProductDto {
   @ArrayNotEmpty()
   @IsNumber({}, { each: true })
   @Validate(CategoryExists)
+  @ApiProperty({ description: 'Array of category identifiers' })
   categories: number[];
 }

@@ -4,6 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { ReqUser } from '../auth/decorators/user.decorator';
+import { ApiConflictResponse, ApiNotFoundResponse } from '@nestjs/swagger';
 
 @Controller('users')
 export class UsersController {
@@ -11,11 +12,13 @@ export class UsersController {
 
   @Public()
   @Post()
+  @ApiConflictResponse({ description: 'Email is already registered' })
   async create(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.usersService.create(createUserDto);
   }
 
   @Delete('me')
+  @ApiNotFoundResponse({ description: 'User not found' })
   async delete(@ReqUser() user: User): Promise<void> {
     await this.usersService.delete(user.id);
   }
