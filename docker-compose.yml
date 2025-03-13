@@ -3,9 +3,9 @@ services:
     image: postgres:13
     container_name: postgres_db
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: 1234
-      POSTGRES_DB: nestjs_store
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=nestjs_store
     ports:
       - "5432:5432"
     volumes:
@@ -15,27 +15,22 @@ services:
     image: dpage/pgadmin4
     container_name: pgadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@nestjs.store
-      PGADMIN_DEFAULT_PASSWORD: 1234
+      - PGADMIN_DEFAULT_EMAIL=admin@nestjs.store
+      - PGADMIN_DEFAULT_PASSWORD=1234
     ports:
       - "8080:80"
     depends_on:
       - db
 
   api:
-    image: node:22-alpine3.20
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: nestjs_api
     working_dir: /usr/src/app
-    volumes:
-      - .:/usr/src/app
-    command: sh -c "npm install && npm run migration:run && npm run start:dev"
     environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USER: admin
-      DB_PASSWORD: 1234
-      DB_NAME: nestjs_store
-      JWT_SECRET: -5JRXN!@w2N~C[W&{E^=qI6h1~KR4eh%
+      - DB_URL=psql://admin:1234@db:5432/nestjs_store
+      - JWT_SECRET=-5JRXN!@w2N~C[W&{E^=qI6h1~KR4eh%
     ports:
       - "3000:3000"
     depends_on:
