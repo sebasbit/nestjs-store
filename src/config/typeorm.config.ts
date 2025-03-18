@@ -8,11 +8,7 @@ const db = databaseConfig();
 export default new DataSource({
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   type: db.type,
-  host: db.host,
-  port: db.port,
-  username: db.username,
-  password: db.password,
-  database: db.database,
+  url: db.url,
   synchronize: false,
   logging: true,
   migrationsRun: false,
