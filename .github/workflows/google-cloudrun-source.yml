@@ -12,7 +12,29 @@ env:
   SERVICE: '${{ vars.SERVICE_NAME }}'
 
 jobs:
+  migrate:
+    name: 'Run Database Migrations'
+    runs-on: 'ubuntu-latest'
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: 'Checkout'
+        uses: 'actions/checkout@v4'
+
+      - name: 'Install dependencies'
+        run: 'npm ci'
+
+      - name: 'Run migrations'
+        run: 'npm run migration:run'
+        env:
+          DB_URL: ${{ secrets.DB_URL }}
+
   deploy:
+    name: 'Deploy to Cloud Run'
+    needs: 'migrate'
     runs-on: 'ubuntu-latest'
 
     permissions:
