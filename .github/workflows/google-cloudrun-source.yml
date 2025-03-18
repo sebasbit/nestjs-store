@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - 'main'
-      - 'deploy-to-cloud-run'
 
 env:
   PROJECT_ID: '${{ vars.GCP_PROJECT_ID }}'
